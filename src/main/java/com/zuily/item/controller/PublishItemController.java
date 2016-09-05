@@ -85,6 +85,7 @@ public class PublishItemController {
 					.format(new Date()) + "f";
 			String url = realpath + "/upLoad/ItemPics/" + pid + "." + split[1];
 			pics.transferTo(new File(url));
+			System.out.println(url);
 			items.setShowpic("/upLoad/ItemPics/" + pid + "." + split[1]);
 			break;
 		}
@@ -177,7 +178,9 @@ public class PublishItemController {
 		try {
 			picList = new ArrayList<Pics>();
 			int i = 0;
-			for (MultipartFile multipartFile : PICS) {
+			MultipartFile multipartFile = null;
+			for (int p=1,j=PICS.length; p<j; p++) {
+				 multipartFile = PICS[p];
 				i++;
 				Pics pics = new Pics();
 				String originalFilename = multipartFile.getOriginalFilename();
