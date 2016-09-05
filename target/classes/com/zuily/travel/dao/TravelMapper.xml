@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zuily.travel.dao.TravelMapper" >
+  <resultMap id="BaseResultMap" type="com.zuily.travel.bean.Travel" >
+    <id column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="tname" property="tname" jdbcType="CHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="fee" property="fee" jdbcType="DOUBLE" />
+    <result column="destination" property="destination" jdbcType="CHAR" />
+    <result column="starttime" property="starttime" jdbcType="CHAR" />
+    <result column="daynum" property="daynum" jdbcType="TINYINT" />
+    <result column="username" property="username" jdbcType="CHAR" />
+    <result column="userpicurl" property="userpicurl" jdbcType="CHAR" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="look" property="look" jdbcType="INTEGER" />
+    <result column="torder" property="torder" jdbcType="CHAR" />
+    <result column="showPic" property="showpic" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    tid, tname, type, fee, destination, starttime, daynum, username, userpicurl, state, 
+    look, torder, showPic
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zuily.travel.bean.TravelExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from travel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from travel
+    where tid = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from travel
+    where tid = #{tid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zuily.travel.bean.TravelExample" >
+    delete from travel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zuily.travel.bean.Travel"  useGeneratedKeys="true" keyProperty="tid">
+    insert into travel (tid, tname, type, fee, 
+      destination, starttime, daynum, 
+      username, userpicurl, state, 
+      look, torder, showPic)
+    values (#{tid,jdbcType=INTEGER}, #{tname,jdbcType=CHAR}, #{type,jdbcType=CHAR}, #{fee,jdbcType=DOUBLE}, 
+      #{destination,jdbcType=CHAR}, #{starttime,jdbcType=CHAR}, #{daynum,jdbcType=TINYINT}, 
+      #{username,jdbcType=CHAR}, #{userpicurl,jdbcType=CHAR}, #{state,jdbcType=TINYINT}, 
+      #{look,jdbcType=INTEGER}, #{torder,jdbcType=CHAR}, #{showpic,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zuily.travel.bean.Travel" >
+    insert into travel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="tname != null" >
+        tname,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="fee != null" >
+        fee,
+      </if>
+      <if test="destination != null" >
+        destination,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="daynum != null" >
+        daynum,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="userpicurl != null" >
+        userpicurl,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="look != null" >
+        look,
+      </if>
+      <if test="torder != null" >
+        torder,
+      </if>
+      <if test="showpic != null" >
+        showPic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="tname != null" >
+        #{tname,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=DOUBLE},
+      </if>
+      <if test="destination != null" >
+        #{destination,jdbcType=CHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=CHAR},
+      </if>
+      <if test="daynum != null" >
+        #{daynum,jdbcType=TINYINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=CHAR},
+      </if>
+      <if test="userpicurl != null" >
+        #{userpicurl,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="look != null" >
+        #{look,jdbcType=INTEGER},
+      </if>
+      <if test="torder != null" >
+        #{torder,jdbcType=CHAR},
+      </if>
+      <if test="showpic != null" >
+        #{showpic,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zuily.travel.bean.TravelExample" resultType="java.lang.Integer" >
+    select count(*) from travel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update travel
+    <set >
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tname != null" >
+        tname = #{record.tname,jdbcType=CHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.fee != null" >
+        fee = #{record.fee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.destination != null" >
+        destination = #{record.destination,jdbcType=CHAR},
+      </if>
+      <if test="record.starttime != null" >
+        starttime = #{record.starttime,jdbcType=CHAR},
+      </if>
+      <if test="record.daynum != null" >
+        daynum = #{record.daynum,jdbcType=TINYINT},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=CHAR},
+      </if>
+      <if test="record.userpicurl != null" >
+        userpicurl = #{record.userpicurl,jdbcType=CHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=TINYINT},
+      </if>
+      <if test="record.look != null" >
+        look = #{record.look,jdbcType=INTEGER},
+      </if>
+      <if test="record.torder != null" >
+        torder = #{record.torder,jdbcType=CHAR},
+      </if>
+      <if test="record.showpic != null" >
+        showPic = #{record.showpic,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update travel
+    set tid = #{record.tid,jdbcType=INTEGER},
+      tname = #{record.tname,jdbcType=CHAR},
+      type = #{record.type,jdbcType=CHAR},
+      fee = #{record.fee,jdbcType=DOUBLE},
+      destination = #{record.destination,jdbcType=CHAR},
+      starttime = #{record.starttime,jdbcType=CHAR},
+      daynum = #{record.daynum,jdbcType=TINYINT},
+      username = #{record.username,jdbcType=CHAR},
+      userpicurl = #{record.userpicurl,jdbcType=CHAR},
+      state = #{record.state,jdbcType=TINYINT},
+      look = #{record.look,jdbcType=INTEGER},
+      torder = #{record.torder,jdbcType=CHAR},
+      showPic = #{record.showpic,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zuily.travel.bean.Travel" >
+    update travel
+    <set >
+      <if test="tname != null" >
+        tname = #{tname,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="fee != null" >
+        fee = #{fee,jdbcType=DOUBLE},
+      </if>
+      <if test="destination != null" >
+        destination = #{destination,jdbcType=CHAR},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=CHAR},
+      </if>
+      <if test="daynum != null" >
+        daynum = #{daynum,jdbcType=TINYINT},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=CHAR},
+      </if>
+      <if test="userpicurl != null" >
+        userpicurl = #{userpicurl,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="look != null" >
+        look = #{look,jdbcType=INTEGER},
+      </if>
+      <if test="torder != null" >
+        torder = #{torder,jdbcType=CHAR},
+      </if>
+      <if test="showpic != null" >
+        showPic = #{showpic,jdbcType=CHAR},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zuily.travel.bean.Travel" >
+    update travel
+    set tname = #{tname,jdbcType=CHAR},
+      type = #{type,jdbcType=CHAR},
+      fee = #{fee,jdbcType=DOUBLE},
+      destination = #{destination,jdbcType=CHAR},
+      starttime = #{starttime,jdbcType=CHAR},
+      daynum = #{daynum,jdbcType=TINYINT},
+      username = #{username,jdbcType=CHAR},
+      userpicurl = #{userpicurl,jdbcType=CHAR},
+      state = #{state,jdbcType=TINYINT},
+      look = #{look,jdbcType=INTEGER},
+      torder = #{torder,jdbcType=CHAR},
+      showPic = #{showpic,jdbcType=CHAR}
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+</mapper>

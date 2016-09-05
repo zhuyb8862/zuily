@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zuily.item.dao.ItemsMapper" >
+  <resultMap id="BaseResultMap" type="com.zuily.item.bean.Items" >
+    <id column="iid" property="iid" jdbcType="INTEGER" />
+    <result column="Iname" property="iname" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="destination" property="destination" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="resourceUrl" property="resourceurl" jdbcType="VARCHAR" />
+    <result column="itemBrief" property="itembrief" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="TINYINT" />
+    <result column="look" property="look" jdbcType="INTEGER" />
+    <result column="iorder" property="iorder" jdbcType="VARCHAR" />
+    <result column="bid" property="bid" jdbcType="INTEGER" />
+    <result column="showPic" property="showpic" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    iid, Iname, type, price, destination, phone, resourceUrl, itemBrief, state, look, 
+    iorder, bid, showPic
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zuily.item.bean.ItemsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from items
+    where iid = #{iid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from items
+    where iid = #{iid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zuily.item.bean.ItemsExample" >
+    delete from items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zuily.item.bean.Items" useGeneratedKeys="true" keyProperty="iid" >
+    insert into items (iid, Iname, type, 
+      price, destination, phone, 
+      resourceUrl, itemBrief, state, 
+      look, iorder, bid, 
+      showPic)
+    values (#{iid,jdbcType=INTEGER}, #{iname,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, 
+      #{price,jdbcType=DOUBLE}, #{destination,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{resourceurl,jdbcType=VARCHAR}, #{itembrief,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT}, 
+      #{look,jdbcType=INTEGER}, #{iorder,jdbcType=VARCHAR}, #{bid,jdbcType=INTEGER}, 
+      #{showpic,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zuily.item.bean.Items" >
+    insert into items
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iid != null" >
+        iid,
+      </if>
+      <if test="iname != null" >
+        Iname,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="destination != null" >
+        destination,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="resourceurl != null" >
+        resourceUrl,
+      </if>
+      <if test="itembrief != null" >
+        itemBrief,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="look != null" >
+        look,
+      </if>
+      <if test="iorder != null" >
+        iorder,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="showpic != null" >
+        showPic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iid != null" >
+        #{iid,jdbcType=INTEGER},
+      </if>
+      <if test="iname != null" >
+        #{iname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="destination != null" >
+        #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceurl != null" >
+        #{resourceurl,jdbcType=VARCHAR},
+      </if>
+      <if test="itembrief != null" >
+        #{itembrief,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="look != null" >
+        #{look,jdbcType=INTEGER},
+      </if>
+      <if test="iorder != null" >
+        #{iorder,jdbcType=VARCHAR},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="showpic != null" >
+        #{showpic,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zuily.item.bean.ItemsExample" resultType="java.lang.Integer" >
+    select count(*) from items
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update items
+    <set >
+      <if test="record.iid != null" >
+        iid = #{record.iid,jdbcType=INTEGER},
+      </if>
+      <if test="record.iname != null" >
+        Iname = #{record.iname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.destination != null" >
+        destination = #{record.destination,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resourceurl != null" >
+        resourceUrl = #{record.resourceurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itembrief != null" >
+        itemBrief = #{record.itembrief,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=TINYINT},
+      </if>
+      <if test="record.look != null" >
+        look = #{record.look,jdbcType=INTEGER},
+      </if>
+      <if test="record.iorder != null" >
+        iorder = #{record.iorder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bid != null" >
+        bid = #{record.bid,jdbcType=INTEGER},
+      </if>
+      <if test="record.showpic != null" >
+        showPic = #{record.showpic,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update items
+    set iid = #{record.iid,jdbcType=INTEGER},
+      Iname = #{record.iname,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=CHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      destination = #{record.destination,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      resourceUrl = #{record.resourceurl,jdbcType=VARCHAR},
+      itemBrief = #{record.itembrief,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=TINYINT},
+      look = #{record.look,jdbcType=INTEGER},
+      iorder = #{record.iorder,jdbcType=VARCHAR},
+      bid = #{record.bid,jdbcType=INTEGER},
+      showPic = #{record.showpic,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zuily.item.bean.Items" >
+    update items
+    <set >
+      <if test="iname != null" >
+        Iname = #{iname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="destination != null" >
+        destination = #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceurl != null" >
+        resourceUrl = #{resourceurl,jdbcType=VARCHAR},
+      </if>
+      <if test="itembrief != null" >
+        itemBrief = #{itembrief,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="look != null" >
+        look = #{look,jdbcType=INTEGER},
+      </if>
+      <if test="iorder != null" >
+        iorder = #{iorder,jdbcType=VARCHAR},
+      </if>
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="showpic != null" >
+        showPic = #{showpic,jdbcType=CHAR},
+      </if>
+    </set>
+    where iid = #{iid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zuily.item.bean.Items" >
+    update items
+    set Iname = #{iname,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      price = #{price,jdbcType=DOUBLE},
+      destination = #{destination,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      resourceUrl = #{resourceurl,jdbcType=VARCHAR},
+      itemBrief = #{itembrief,jdbcType=VARCHAR},
+      state = #{state,jdbcType=TINYINT},
+      look = #{look,jdbcType=INTEGER},
+      iorder = #{iorder,jdbcType=VARCHAR},
+      bid = #{bid,jdbcType=INTEGER},
+      showPic = #{showpic,jdbcType=CHAR}
+    where iid = #{iid,jdbcType=INTEGER}
+  </update>
+</mapper>
