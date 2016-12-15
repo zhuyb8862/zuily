@@ -39,7 +39,7 @@ public class ItemController {
 	@Autowired
 	private TimeService timeService;
 
-	@RequestMapping("item/detal/{id}")
+	@RequestMapping("item/detail/{id}")
 	public ItemDetail itemDel(@PathVariable("id") int id) {
 	//	Integer id = Integer.getInteger(sid);
 		ItemDetail detail = new ItemDetail();
